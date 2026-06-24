@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kagane Downloader</title>
+  <link rel="stylesheet" href="./popup.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="header">
+      <h1 class="header__title">Kagane Downloader</h1>
+      <span class="header__badge">v1.0.0</span>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab tab--active" data-tab="browse">Browse</button>
+      <button class="tab" data-tab="downloads">Downloads</button>
+      <button class="tab" data-tab="settings">Settings</button>
+    </nav>
+
+    <!-- Error / Notification Bar -->
+    <div id="error-bar" class="error-bar" style="display:none">
+      <span id="error-text" class="error-bar__text"></span>
+      <button id="error-dismiss" class="error-bar__dismiss">&times;</button>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay" style="display:none">
+      <div class="spinner"></div>
+      <span id="loading-text" class="loading-overlay__text">Loading...</span>
+    </div>
+
+    <main class="content">
+      <!-- ─── Browse Tab ─── -->
+      <section id="tab-browse" class="tab-panel tab-panel--active">
+        <div class="browse">
+          <!-- URL Input -->
+          <div class="url-input-row">
+            <input
+              type="text"
+              id="series-url"
+              class="url-input"
+              placeholder="Paste Kagane URL or series ID..."
+              autofocus
+            />
+            <button id="paste-btn" class="btn btn--icon" title="Paste from clipboard">📋</button>
+            <button id="load-btn" class="btn btn--primary" disabled>Load</button>
+          </div>
+
+          <!-- Series Info Card (hidden until loaded) -->
+          <div id="series-card" class="series-card" style="display:none">
+            <div class="series-card__cover">
+              <img id="series-cover" src="" alt="Cover" />
+            </div>
+            <div class="series-card__info">
+              <h2 id="series-title" class="series-card__title"></h2>
+              <div class="series-card__badges">
+                <span id="series-format" class="badge"></span>
+                <span id="series-status" class="badge"></span>
+              </div>
+              <div id="series-genres" class="series-card__genres"></div>
+              <p id="series-description" class="series-card__description"></p>
+              <div class="series-card__stats">
+                <span id="series-chapters"></span>
+                <span id="series-views"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Error placeholder (inline, not the global error bar) -->
+          <div id="browse-error" class="browse-error" style="display:none"></div>
+
+          <!-- Chapter List (hidden until series loaded) -->
+          <div id="chapter-section" class="chapter-section" style="display:none">
+            <div class="chapter-section__toolbar">
+              <label class="checkbox-label">
+                <input type="checkbox" id="select-all" />
+                Select All
+              </label>
+              <span id="chapter-count" class="chapter-count"></span>
+            </div>
+
+            <div class="range-input-row">
+              <input type="text" id="range-input" class="range-input" placeholder="Range e.g. 1-50" />
+              <button id="range-select-btn" class="btn btn--sm">Select</button>
+            </div>
+
+            <div id="chapter-list" class="chapter-list"></div>
+
+            <div class="download-action-row">
+              <select id="format-select" class="format-select">
+                <option value="images">Images</option>
+                <option value="cbz">CBZ</option>
+                <option value="pdf">PDF</option>
+              </select>
+              <button id="download-btn" class="btn btn--accent" disabled>
+                Download Selected (0)
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── Downloads Tab ─── -->
+      <section id="tab-downloads" class="tab-panel">
+        <div class="downloads">
+          <!-- Active downloads section -->
+          <div id="active-downloads" class="downloads__active">
+            <h3 class="downloads__heading">Active Downloads</h3>
+            <div id="download-list" class="download-list">
+              <p class="placeholder-text">No active downloads.</p>
+            </div>
+          </div>
+
+          <!-- History section -->
+          <div id="history-section" class="downloads__history">
+            <div class="downloads__history-header">
+              <h3 class="downloads__heading">History</h3>
+              <button id="clear-history-btn" class="btn btn--sm" title="Clear History">Clear</button>
+            </div>
+            <div id="history-list" class="download-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── Settings Tab ─── -->
+      <section id="tab-settings" class="tab-panel">
+        <div class="settings">
+          <h3 class="settings__heading">Download Format</h3>
+          <div class="settings__group">
+            <label class="radio-label">
+              <input type="radio" name="format" value="images" checked />
+              <span>Images (.jpg/.png)</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="format" value="cbz" />
+              <span>CBZ (Comic Book ZIP)</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="format" value="pdf" />
+              <span>PDF (Portable Document)</span>
+            </label>
+          </div>
+
+          <h3 class="settings__heading">Concurrency</h3>
+          <div class="settings__group">
+            <div class="settings__row">
+              <label for="max-chapters">Max concurrent chapters:</label>
+              <input type="number" id="max-chapters" class="settings__input" min="1" max="5" value="3" />
+            </div>
+            <div class="settings__row">
+              <label for="max-images">Max concurrent images (per chapter):</label>
+              <input type="number" id="max-images" class="settings__input" min="1" max="10" value="5" />
+            </div>
+          </div>
+
+          <p class="settings__hint">
+            Changes are saved automatically.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span id="sw-status" class="status-dot status-dot--unknown"></span>
+      <span id="sw-status-text">Checking service worker...</span>
+    </footer>
+  </div>
+  <script type="module" src="./popup.ts"></script>
+</body>
+</html>

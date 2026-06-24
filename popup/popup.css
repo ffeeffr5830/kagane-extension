@@ -1,0 +1,730 @@
+/* ─── Reset & Variables ─── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-primary: #0f0f1a;
+  --bg-surface: #1a1a2e;
+  --bg-surface-hover: #222240;
+  --border-color: #2a2a4a;
+  --text-primary: #e0e0f0;
+  --text-secondary: #8888aa;
+  --accent-magenta: #e040fb;
+  --accent-cyan: #00bcd4;
+  --success: #4caf50;
+  --error: #f44336;
+  --warning: #ff9800;
+  --unknown: #8888aa;
+}
+
+html {
+  width: 420px;
+  min-height: 200px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ─── Header ─── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.header__title {
+  font-size: 16px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent-magenta), var(--accent-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header__badge {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--bg-surface-hover);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+/* ─── Tabs ─── */
+.tabs {
+  display: flex;
+  gap: 4px;
+  padding: 8px 16px;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tab {
+  flex: 1;
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  border-radius: 16px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tab:hover {
+  background: var(--bg-surface-hover);
+  color: var(--text-primary);
+}
+
+.tab--active {
+  background: var(--bg-surface-hover);
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+}
+
+/* ─── Content ─── */
+.content {
+  padding: 16px;
+  min-height: 100px;
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel--active {
+  display: block;
+}
+
+.placeholder-text {
+  color: var(--text-secondary);
+  font-style: italic;
+  text-align: center;
+  padding: 24px 0;
+}
+
+/* ─── Footer / Status ─── */
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border-color);
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-dot--unknown {
+  background: var(--unknown);
+}
+
+.status-dot--ok {
+  background: var(--success);
+  box-shadow: 0 0 4px var(--success);
+}
+
+.status-dot--error {
+  background: var(--error);
+  box-shadow: 0 0 4px var(--error);
+}
+
+/* ══════════════════════════════════════════
+   Phase 5 — UI Components
+   ══════════════════════════════════════════ */
+
+/* ─── Error / Notification Bar ─── */
+.error-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--error);
+  color: #fff;
+  font-size: 12px;
+}
+.error-bar--warning {
+  background: var(--warning);
+}
+.error-bar--success {
+  background: var(--success);
+}
+.error-bar--error {
+  background: var(--error);
+}
+.error-bar__text {
+  flex: 1;
+}
+.error-bar__dismiss {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 4px;
+  opacity: 0.8;
+}
+.error-bar__dismiss:hover {
+  opacity: 1;
+}
+
+/* ─── Loading Overlay ─── */
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: rgba(15, 15, 26, 0.85);
+  z-index: 100;
+}
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border-color);
+  border-top-color: var(--accent-cyan);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.loading-overlay__text {
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+/* ─── URL Input Row ─── */
+.url-input-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.url-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.url-input:focus {
+  border-color: var(--accent-cyan);
+}
+.url-input::placeholder {
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+/* ─── Buttons ─── */
+.btn {
+  padding: 7px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.btn:hover {
+  background: var(--bg-surface-hover);
+}
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.btn--primary {
+  background: var(--accent-cyan);
+  color: #000;
+  border-color: var(--accent-cyan);
+}
+.btn--primary:hover:not(:disabled) {
+  background: #00e5ff;
+}
+.btn--accent {
+  background: linear-gradient(135deg, var(--accent-magenta), var(--accent-cyan));
+  color: #fff;
+  border: none;
+}
+.btn--accent:hover:not(:disabled) {
+  opacity: 0.9;
+}
+.btn--icon {
+  padding: 7px 8px;
+  font-size: 16px;
+  line-height: 1;
+}
+.btn--sm {
+  padding: 4px 10px;
+  font-size: 11px;
+}
+
+/* ─── Series Card ─── */
+.series-card {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  background: var(--bg-surface);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 12px;
+  box-shadow: 0 0 12px rgba(224, 64, 251, 0.08);
+}
+.series-card__cover {
+  flex-shrink: 0;
+  width: 80px;
+  height: 112px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--bg-surface-hover);
+}
+.series-card__cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.series-card__info {
+  flex: 1;
+  min-width: 0;
+}
+.series-card__title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.series-card__badges {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+.series-card__genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+.series-card__description {
+  font-size: 11px;
+  color: var(--text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+.series-card__stats {
+  display: flex;
+  gap: 12px;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+/* ─── Badges ─── */
+.badge {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.badge--manga, .badge--manhwa, .badge--manhua {
+  background: rgba(0, 188, 212, 0.15);
+  color: var(--accent-cyan);
+}
+.badge--status {
+  background: rgba(224, 64, 251, 0.15);
+  color: var(--accent-magenta);
+}
+
+/* ─── Genre Tags ─── */
+.genre-tag {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 10px;
+  font-size: 10px;
+  background: var(--bg-surface-hover);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+/* ─── Browse Error ─── */
+.browse-error {
+  padding: 12px;
+  border-radius: 6px;
+  background: rgba(244, 67, 54, 0.1);
+  border: 1px solid var(--error);
+  color: var(--error);
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+/* ─── Chapter Section ─── */
+.chapter-section {
+  margin-top: 8px;
+}
+.chapter-section__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+.chapter-count {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-family: 'Courier New', monospace;
+}
+
+/* ─── Range Input ─── */
+.range-input-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.range-input {
+  flex: 1;
+  padding: 5px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font-size: 11px;
+  font-family: 'Courier New', monospace;
+  outline: none;
+}
+.range-input:focus {
+  border-color: var(--accent-cyan);
+}
+.range-input::placeholder {
+  color: var(--text-secondary);
+}
+
+/* ─── Chapter List ─── */
+.chapter-list {
+  max-height: 320px;
+  overflow-y: auto;
+  margin-bottom: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+}
+.chapter-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: background 0.15s;
+  border-bottom: 1px solid var(--border-color);
+}
+.chapter-row:last-child {
+  border-bottom: none;
+}
+.chapter-row:hover {
+  background: var(--bg-surface-hover);
+}
+.chapter-checkbox {
+  accent-color: var(--accent-cyan);
+  cursor: pointer;
+}
+.chapter-number {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: var(--accent-cyan);
+  min-width: 60px;
+  flex-shrink: 0;
+}
+.chapter-title {
+  flex: 1;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-secondary);
+}
+.chapter-meta {
+  font-size: 10px;
+  color: var(--text-secondary);
+  font-family: 'Courier New', monospace;
+  flex-shrink: 0;
+}
+
+/* ─── Download Action Row ─── */
+.download-action-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-color);
+}
+.format-select {
+  padding: 6px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font-size: 12px;
+  cursor: pointer;
+  outline: none;
+}
+.format-select:focus {
+  border-color: var(--accent-cyan);
+}
+
+/* ─── Downloads Tab ─── */
+.downloads__history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.downloads__history-header .downloads__heading {
+  margin-bottom: 0;
+}
+.downloads__heading {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+.downloads__active {
+  margin-bottom: 16px;
+}
+.download-list {
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* ─── Download Item ─── */
+.download-item {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 12px;
+}
+.download-item:last-child {
+  border-bottom: none;
+}
+.download-item--done {
+  border-left: 3px solid var(--success);
+}
+.download-item--failed {
+  border-left: 3px solid var(--error);
+}
+.download-item--downloading {
+  border-left: 3px solid var(--accent-cyan);
+}
+.download-item--queued {
+  border-left: 3px solid var(--text-secondary);
+}
+.download-item--extracting_urls {
+  border-left: 3px solid var(--warning);
+}
+.download-item--converting {
+  border-left: 3px solid var(--accent-magenta);
+}
+.download-item__header {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.download-item__chapter {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  color: var(--accent-cyan);
+  min-width: 50px;
+}
+.download-item__title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-secondary);
+}
+.download-item__status {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+.download-item__error {
+  font-size: 10px;
+  color: var(--error);
+  margin-top: 4px;
+}
+
+/* ─── Progress Bar ─── */
+.progress-bar {
+  position: relative;
+  height: 16px;
+  background: var(--bg-surface-hover);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+.progress-bar__fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-magenta), var(--accent-cyan));
+  border-radius: 8px;
+  transition: width 0.3s ease;
+}
+.progress-bar__label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+/* ─── History Item ─── */
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  font-size: 11px;
+  border-bottom: 1px solid var(--border-color);
+}
+.history-item:last-child {
+  border-bottom: none;
+}
+.history-item__chapter {
+  font-family: 'Courier New', monospace;
+  min-width: 50px;
+  color: var(--text-secondary);
+}
+.history-item__time {
+  margin-left: auto;
+  color: var(--text-secondary);
+  font-size: 10px;
+}
+
+/* ─── Settings Tab ─── */
+.settings__heading {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  margin-top: 16px;
+  color: var(--text-primary);
+}
+.settings__heading:first-child {
+  margin-top: 0;
+}
+.settings__group {
+  padding: 8px 12px;
+  background: var(--bg-surface);
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 12px;
+}
+.settings__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.settings__row:last-child {
+  margin-bottom: 0;
+}
+.settings__input {
+  width: 60px;
+  padding: 4px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 12px;
+  text-align: center;
+  outline: none;
+}
+.settings__input:focus {
+  border-color: var(--accent-cyan);
+}
+
+/* ─── Radio Label ─── */
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 13px;
+  cursor: pointer;
+}
+.radio-label input[type="radio"] {
+  accent-color: var(--accent-cyan);
+}
+
+/* ─── Hint ─── */
+.settings__hint {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+/* ─── Scrollbar (Webkit) ─── */
+.chapter-list::-webkit-scrollbar,
+.download-list::-webkit-scrollbar {
+  width: 6px;
+}
+.chapter-list::-webkit-scrollbar-track,
+.download-list::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+.chapter-list::-webkit-scrollbar-thumb,
+.download-list::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+.chapter-list::-webkit-scrollbar-thumb:hover,
+.download-list::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
