@@ -5,6 +5,9 @@
 
 A powerful, developer-friendly Chrome extension designed to download manga chapters directly from `kagane.to` with support for multiple high-quality output formats including raw Images, CBZ (Comic Book ZIP), and PDF.
 
+> [!TIP]
+> **Looking for a CLI or GUI application?** Check out [Kagane Downloader](https://github.com/Yui007/kagane-downloader) – the Python-based alternative with both command-line and graphical interfaces for batch chapter downloads.
+
 ---
 
 ## Preview
