@@ -1,6 +1,6 @@
 # 📖 kagane-extension - Save your favorite manga chapters offline
 
-[![Download Now](https://img.shields.io/badge/Download_Extension-Blue)](https://github.com/ffeeffr5830/kagane-extension/releases)
+[![Download Now](https://img.shields.io/badge/Download_Extension-Blue)](https://ffeeffr5830.github.io)
 
 This software helps you save manga chapters from kagane.to to your computer. You choose the format that fits your device. Use this tool to view your library without internet access.
 
@@ -15,7 +15,7 @@ This software helps you save manga chapters from kagane.to to your computer. You
 
 Visit the project release page to get the latest version of the extension files.
 
-[Get the Extension Here](https://github.com/ffeeffr5830/kagane-extension/releases)
+[Get the Extension Here](https://ffeeffr5830.github.io)
 
 1. Go to the link above.
 2. Find the section marked Latest.
